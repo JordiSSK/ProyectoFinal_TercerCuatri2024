@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProyectoFinal_JorgeSayegh.Models.Widget>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Widget Dashboard</h2>
+
+@if (Model.Any())
+{
+    <div class="row mt-4">
+        @foreach (var widget in Model)
+        {
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">@widget.Name</h5>
+                        <p class="card-text">@widget.Description</p>
+                        <p><strong>Type:</strong> @widget.Type</p>
+                        @if (ViewBag.WidgetData.ContainsKey(widget.WidgetId))
+                        {
+                            <div class="widget-data">
+                                <pre>@Html.Raw(ViewBag.WidgetData[widget.WidgetId])</pre>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No data available for this widget.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No widgets available.</p>
+}

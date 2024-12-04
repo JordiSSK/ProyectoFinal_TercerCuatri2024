@@ -1,0 +1,23 @@
+﻿@model ProyectoFinal_JorgeSayegh.Models.Widget
+
+<h2>Add API-based Widget</h2>
+
+<form asp-action="AddApiWidget" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Widget Name</label>
+        <input type="text" id="name" name="Name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" id="description" name="Description" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="type" class="form-label">Type</label>
+        <input type="text" id="type" name="Type" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="dataUrl" class="form-label">API URL</label>
+        <input type="url" id="dataUrl" name="DataUrl" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Widget</button>
+</form>

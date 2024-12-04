@@ -1,0 +1,27 @@
+﻿@model ProyectoFinal_JorgeSayegh.Models.GlobalSettings
+
+@{
+    ViewData["Title"] = "Global Settings";
+}
+
+<h2>Global Settings</h2>
+
+<form asp-action="GlobalSettings" method="post">
+    <div class="mb-3">
+        <label for="DefaultRefreshInterval" class="form-label">Default Refresh Interval (seconds)</label>
+        <input type="number" class="form-control" id="DefaultRefreshInterval" name="DefaultRefreshInterval" value="@Model.DefaultRefreshInterval" required />
+    </div>
+    <div class="mb-3">
+        <label for="DefaultApiKey" class="form-label">Default API Key</label>
+        <input type="text" class="form-control" id="DefaultApiKey" name="DefaultApiKey" value="@Model.DefaultApiKey" />
+    </div>
+    <div class="mb-3">
+        <label for="DefaultWidgetSize" class="form-label">Default Widget Size</label>
+        <select class="form-select" id="DefaultWidgetSize" name="DefaultWidgetSize">
+            <option value="Small" @(Model.DefaultWidgetSize == "Small" ? "selected" : "")>Small</option>
+            <option value="Medium" @(Model.DefaultWidgetSize == "Medium" ? "selected" : "")>Medium</option>
+            <option value="Large" @(Model.DefaultWidgetSize == "Large" ? "selected" : "")>Large</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+</form>

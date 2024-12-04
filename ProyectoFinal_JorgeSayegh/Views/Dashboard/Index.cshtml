@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ProyectoFinal_JorgeSayegh.Models.Widget>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<!-- Favorites Section -->
+<h3>Favorites</h3>
+<div class="row">
+    @foreach (var widget in Model.Where(w => w.IsFavorite))
+    {
+        <div class="col-md-4">
+            <div class="card shadow-sm" id="widget-@widget.WidgetId">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@widget.Name</h5>
+                    <p class="card-text">@widget.Description</p>
+                    <p><strong>Type:</strong> @widget.Type</p>
+                    <p><strong>Data:</strong> <span id="widget-data-@widget.WidgetId">Loading...</span></p>
+                    <form action="/Widget/RemoveFromFavorites" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@widget.WidgetId" />
+                        <button type="submit" class="btn btn-danger">Remove from Favorites</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Other Widgets Section -->
+<h3>Other Widgets</h3>
+<div class="row">
+    @foreach (var widget in Model.Where(w => !w.IsFavorite))
+    {
+        <div class="col-md-4">
+            <div class="card shadow-sm" id="widget-@widget.WidgetId">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@widget.Name</h5>
+                    <p class="card-text">@widget.Description</p>
+                    <p><strong>Type:</strong> @widget.Type</p>
+                    <p><strong>Data:</strong> <span id="widget-data-@widget.WidgetId">Loading...</span></p>
+                    <form action="/Widget/AddToFavorites" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@widget.WidgetId" />
+                        <button type="submit" class="btn btn-primary">Add to Favorites</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    async function refreshWidget(widgetId) {
+        const dataContainer = document.getElementById(`widget-data-${widgetId}`);
+        try {
+            const response = await fetch(`/Widget/RefreshData?id=${widgetId}`);
+            if (!response.ok) throw new Error("Failed to fetch data.");
+            const result = await response.json();
+            dataContainer.innerText = result.data;
+        } catch (error) {
+            dataContainer.innerText = "Error loading data.";
+            console.error(`Error refreshing widget ${widgetId}:`, error);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const widgets = document.querySelectorAll("[id^='widget-data-']");
+        widgets.forEach(widget => {
+            const widgetId = widget.id.replace("widget-data-", "");
+            refreshWidget(widgetId);
+        });
+    });
+</script>

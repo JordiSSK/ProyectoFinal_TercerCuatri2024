@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProyectoFinal_JorgeSayegh.Models.Widget>
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h2>Manage Widgets</h2>
+<form action="/Widget/Create" method="get">
+    <button type="submit" class="btn btn-success mb-3">Create New Widget</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var widget in Model)
+    {
+        <tr>
+            <td>@widget.Name</td>
+            <td>@widget.Description</td>
+            <td>@widget.Type</td>
+            <td>
+                <form action="/Widget/Edit" method="get" class="d-inline">
+                    <input type="hidden" name="id" value="@widget.WidgetId" />
+                    <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                </form>
+                <form action="/Widget/Delete" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@widget.WidgetId" />
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

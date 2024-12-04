@@ -1,0 +1,14 @@
+﻿@model ProyectoFinal_JorgeSayegh.Models.Widget
+@{
+    ViewData["Title"] = "Delete Widget";
+}
+
+<h2>Delete Widget</h2>
+
+<p>Are you sure you want to delete the widget: <strong>@Model.Name</strong>?</p>
+
+<form asp-action="Delete" method="post" class="mt-4">
+    <input type="hidden" name="WidgetId" value="@Model.WidgetId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

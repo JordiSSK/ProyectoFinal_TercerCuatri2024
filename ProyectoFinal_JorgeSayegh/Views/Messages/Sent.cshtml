@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ProyectoFinal_JorgeSayegh.Models.Message>
+
+<h2>Sent Messages</h2>
+
+@foreach (var message in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>To: @message.Recipient.Username</h5>
+            <p>@message.Content</p>
+            <small class="text-muted">Sent: @message.SentAt</small>
+        </div>
+    </div>
+}

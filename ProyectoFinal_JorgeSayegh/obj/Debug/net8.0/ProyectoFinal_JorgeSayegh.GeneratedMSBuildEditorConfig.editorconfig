@@ -38,6 +38,38 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Feed/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Feed/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Feed/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Messages/Compose.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcQ29tcG9zZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Messages/Inbox.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcSW5ib3guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Messages/Sent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcU2VudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Messages/_InboxMessages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcX0luYm94TWVzc2FnZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Messages/_SentMessages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcX1NlbnRNZXNzYWdlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jorge/Desktop/Voice_AI/Progra_Avanzada_Web/Quiz/ProyectoFinal_JorgeSayegh/ProyectoFinal_JorgeSayegh/Views/Settings/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

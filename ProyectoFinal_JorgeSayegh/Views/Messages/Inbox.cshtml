@@ -1,0 +1,88 @@
+﻿@using System.Security.Claims
+@model IEnumerable<ProyectoFinal_JorgeSayegh.Models.Message>
+
+<h2>Inbox</h2>
+
+<!-- Dropdown for Inbox and Sent Messages -->
+<div class="dropdown mb-4">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="messageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Message Options
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="messageDropdown">
+        <li><a class="dropdown-item" href="#" id="showInbox">Inbox</a></li>
+        <li><a class="dropdown-item" href="#" id="showSent">Sent Messages</a></li>
+    </ul>
+</div>
+
+<!-- Section to dynamically load Inbox or Sent Messages -->
+<div id="messageContainer">
+    @Html.Partial("_InboxMessages", Model)
+    <!-- Inbox will be loaded here by default -->
+    @foreach (var message in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>From: @message.Sender.Username</h5>
+                <p>@message.Content</p>
+                <small class="text-muted">Sent: @message.SentAt</small>
+                @if (!message.IsRead)
+                {
+                    <form action="/Messages/MarkAsRead" method="post" class="mt-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="messageId" value="@message.MessageId" />
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Mark as Read</button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.getElementById("showInbox").addEventListener("click", function () {
+        fetch('/Messages/Inbox')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("messageContainer").innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching inbox:', error));
+    });
+
+    document.getElementById("showSent").addEventListener("click", function () {
+        fetch('/Messages/Sent')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("messageContainer").innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching sent messages:', error));
+    });
+</script>
+
+<!-- Compose New Message -->
+<div class="mb-4">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#composeMessage" role="button" aria-expanded="false" aria-controls="composeMessage">
+        Compose New Message
+    </a>
+    <div class="collapse mt-3" id="composeMessage">
+        <div class="card card-body">
+            <form action="/Messages/Send" method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label for="recipient" class="form-label">Recipient</label>
+                    <select id="recipient" name="RecipientId" class="form-control" required>
+                        <option value="">Select a user...</option>
+                        @foreach (var user in ViewBag.Users as List<ProyectoFinal_JorgeSayegh.Models.User>)
+                        {
+                            <option value="@user.UserId">@user.Username</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Message</label>
+                    <textarea id="content" name="Content" class="form-control" rows="3" maxlength="500" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>

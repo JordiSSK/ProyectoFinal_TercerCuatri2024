@@ -4,7 +4,7 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h2>Dashboard</h2>
+<h2>Widgets Dashboard</h2>
 
 <!-- Favorites Section -->
 <h3>Favorites</h3>
@@ -17,6 +17,7 @@
                     <h5 class="card-title">@widget.Name</h5>
                     <p class="card-text">@widget.Description</p>
                     <p><strong>Type:</strong> @widget.Type</p>
+                    <div id="widget-image-@widget.WidgetId" class="mb-2"></div>
                     <p><strong>Data:</strong> <span id="widget-data-@widget.WidgetId">Loading...</span></p>
                     <form action="/Widget/RemoveFromFavorites" method="post">
                         @Html.AntiForgeryToken()
@@ -32,19 +33,23 @@
 <!-- Other Widgets Section -->
 <h3>Other Widgets</h3>
 <div class="row">
-    @foreach (var widget in Model.Where(w => !w.IsFavorite))
+    @foreach (var widget in Model)
     {
         <div class="col-md-4">
-            <div class="card shadow-sm" id="widget-@widget.WidgetId">
+            <div class="card shadow-sm mb-4">
                 <div class="card-body text-center">
                     <h5 class="card-title">@widget.Name</h5>
                     <p class="card-text">@widget.Description</p>
                     <p><strong>Type:</strong> @widget.Type</p>
-                    <p><strong>Data:</strong> <span id="widget-data-@widget.WidgetId">Loading...</span></p>
-                    <form action="/Widget/AddToFavorites" method="post">
+                    <div id="widget-data-@widget.WidgetId">
+                        Loading...
+                    </div>
+                    <form action="/Widget/@(widget.IsFavorite ? "RemoveFromFavorites" : "AddToFavorites")" method="post">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@widget.WidgetId" />
-                        <button type="submit" class="btn btn-primary">Add to Favorites</button>
+                        <button type="submit" class="btn @(widget.IsFavorite ? "btn-danger" : "btn-primary")">
+                            @(widget.IsFavorite ? "Remove from Favorites" : "Add to Favorites")
+                        </button>
                     </form>
                 </div>
             </div>
@@ -59,7 +64,15 @@
             const response = await fetch(`/Widget/RefreshData?id=${widgetId}`);
             if (!response.ok) throw new Error("Failed to fetch data.");
             const result = await response.json();
-            dataContainer.innerText = result.data;
+
+            // Update the widget display based on data type
+            if (result.data.startsWith("http")) {
+                // Likely an image URL
+                dataContainer.innerHTML = `<img src="${result.data}" alt="Widget Image" style="max-width:100%;"/>`;
+            } else {
+                // Plain text
+                dataContainer.innerText = result.data;
+            }
         } catch (error) {
             dataContainer.innerText = "Error loading data.";
             console.error(`Error refreshing widget ${widgetId}:`, error);
@@ -74,3 +87,4 @@
         });
     });
 </script>
+

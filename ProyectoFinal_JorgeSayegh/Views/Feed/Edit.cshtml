@@ -1,0 +1,17 @@
+﻿@model ProyectoFinal_JorgeSayegh.Models.Post
+
+<h2>Edit Post</h2>
+
+<form action="/Feed/Edit" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="PostId" value="@Model.PostId" />
+    <div class="mb-3">
+        <label for="text" class="form-label">Text</label>
+        <textarea id="text" name="Text" class="form-control" rows="4" maxlength="250" required>@Model.Text</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input type="file" id="image" name="Image" class="form-control" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

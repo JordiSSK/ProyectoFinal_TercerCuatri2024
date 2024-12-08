@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ProyectoFinal_JorgeSayegh.Models.Message>
+
+@* Ensure layout is null explicitly to prevent overriding *@
+@{
+    Layout = null;
+}
+
+@foreach (var message in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>From: @message.Sender.Username</h5>
+            <p>@message.Content</p>
+            <small class="text-muted">Sent: @message.SentAt</small>
+            @if (!message.IsRead)
+            {
+                <form action="/Messages/MarkAsRead" method="post" class="mt-2">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="messageId" value="@message.MessageId" />
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Mark as Read</button>
+                </form>
+            }
+        </div>
+    </div>
+}

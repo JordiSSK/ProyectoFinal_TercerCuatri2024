@@ -35,36 +35,67 @@ namespace ProyectoFinal_JorgeSayegh.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RefreshData(Guid id)
+public async Task<IActionResult> RefreshData(Guid id)
+{
+    _logger.LogInformation("Accessing RefreshData for WidgetId {Id}.", id);
+    var widget = _context.Widgets.FirstOrDefault(w => w.WidgetId == id);
+    if (widget == null)
+    {
+        _logger.LogWarning("Widget with ID {Id} not found.", id);
+        return NotFound("Widget not found.");
+    }
+
+    if (string.IsNullOrEmpty(widget.DataUrl))
+    {
+        _logger.LogWarning("Widget with ID {Id} does not have a DataUrl.", id);
+        return BadRequest("Widget does not have a valid DataUrl.");
+    }
+
+    try
+    {
+        var client = new HttpClient();
+        var response = await client.GetStringAsync(widget.DataUrl);
+        var parsedData = string.Empty;
+
+        if (widget.Type.Equals("Image", StringComparison.OrdinalIgnoreCase))
         {
-            _logger.LogInformation("Accessing RefreshData for WidgetId {Id}.", id);
-            var widget = _context.Widgets.FirstOrDefault(w => w.WidgetId == id);
-            if (widget == null)
+            // Parse JSON response to get the image URL
+            var json = System.Text.Json.JsonDocument.Parse(response);
+            if (json.RootElement.TryGetProperty("message", out var message))
             {
-                _logger.LogWarning("Widget with ID {Id} not found.", id);
-                return NotFound("Widget not found.");
-            }
-
-            if (string.IsNullOrEmpty(widget.DataUrl))
-            {
-                _logger.LogWarning("Widget with ID {Id} does not have a DataUrl.", id);
-                return BadRequest("Widget does not have a valid DataUrl.");
-            }
-
-            try
-            {
-                var client = new HttpClient();
-                var response = await client.GetStringAsync(widget.DataUrl);
-
-                _logger.LogInformation("Data fetched successfully for WidgetId {Id}.", id);
-                return Json(new { data = response });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching data for WidgetId {Id}.", id);
-                return StatusCode(500, "Error fetching data from the API.");
+                parsedData = message.GetString();
             }
         }
+        else if (widget.Type.Equals("Text", StringComparison.OrdinalIgnoreCase))
+        {
+            // Parse jokes or other text-based data
+            var json = System.Text.Json.JsonDocument.Parse(response);
+            if (json.RootElement.TryGetProperty("setup", out var setup) &&
+                json.RootElement.TryGetProperty("punchline", out var punchline))
+            {
+                parsedData = $"{setup.GetString()} {punchline.GetString()}";
+            }
+            else if (json.RootElement.TryGetProperty("fact", out var fact))
+            {
+                parsedData = fact.GetString();
+            }
+        }
+        else
+        {
+            parsedData = response; // Default to raw response for unknown types
+        }
+
+        _logger.LogInformation("Data fetched and parsed successfully for WidgetId {Id}.", id);
+        return Json(new { data = parsedData });
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error fetching data for WidgetId {Id}.", id);
+        return StatusCode(500, "Error fetching data from the API.");
+    }
+}
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

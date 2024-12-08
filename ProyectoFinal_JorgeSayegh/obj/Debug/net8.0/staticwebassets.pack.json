@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\jorge\\Desktop\\Voice_AI\\Progra_Avanzada_Web\\Quiz\\ProyectoFinal_JorgeSayegh\\ProyectoFinal_JorgeSayegh\\wwwroot\\uploads\\18d9bde2-b6f8-4040-af4c-1cc2de268aec.png",
+      "PackagePath": "staticwebassets\\uploads\\18d9bde2-b6f8-4040-af4c-1cc2de268aec.png"
+    },
+    {
+      "Id": "C:\\Users\\jorge\\Desktop\\Voice_AI\\Progra_Avanzada_Web\\Quiz\\ProyectoFinal_JorgeSayegh\\ProyectoFinal_JorgeSayegh\\wwwroot\\uploads\\55feec86-de93-42bc-b867-56669ceaf48a.png",
+      "PackagePath": "staticwebassets\\uploads\\55feec86-de93-42bc-b867-56669ceaf48a.png"
+    },
+    {
+      "Id": "C:\\Users\\jorge\\Desktop\\Voice_AI\\Progra_Avanzada_Web\\Quiz\\ProyectoFinal_JorgeSayegh\\ProyectoFinal_JorgeSayegh\\wwwroot\\uploads\\94809390-c6c1-4c18-9fc0-cf138fc4f901.png",
+      "PackagePath": "staticwebassets\\uploads\\94809390-c6c1-4c18-9fc0-cf138fc4f901.png"
+    },
+    {
+      "Id": "C:\\Users\\jorge\\Desktop\\Voice_AI\\Progra_Avanzada_Web\\Quiz\\ProyectoFinal_JorgeSayegh\\ProyectoFinal_JorgeSayegh\\wwwroot\\uploads\\df9bea16-03c0-4df1-8995-29f7f1e6164e.png",
+      "PackagePath": "staticwebassets\\uploads\\df9bea16-03c0-4df1-8995-29f7f1e6164e.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ProyectoFinal_JorgeSayegh.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ProyectoFinal_JorgeSayegh.props",
+      "PackagePath": "build\\ProyectoFinal_JorgeSayegh.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ProyectoFinal_JorgeSayegh.props",
+      "PackagePath": "buildMultiTargeting\\ProyectoFinal_JorgeSayegh.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ProyectoFinal_JorgeSayegh.props",
+      "PackagePath": "buildTransitive\\ProyectoFinal_JorgeSayegh.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

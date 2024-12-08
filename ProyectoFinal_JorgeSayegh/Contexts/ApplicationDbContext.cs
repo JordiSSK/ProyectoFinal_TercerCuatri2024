@@ -11,6 +11,9 @@ namespace ProyectoFinal_JorgeSayegh.Contexts
         public DbSet<Widget> Widgets { get; set; }
         public DbSet<WidgetSetting> WidgetSettings { get; set; }
         public DbSet<UserFavorite> UserFavorites { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<GlobalSettings> GlobalSettings { get; set; }
 
 

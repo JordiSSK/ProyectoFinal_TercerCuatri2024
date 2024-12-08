@@ -22,6 +22,35 @@ namespace ProyectoFinal_JorgeSayegh.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Comment", b =>
+                {
+                    b.Property<Guid>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.GlobalSettings", b =>
                 {
                     b.Property<Guid>("Id")
@@ -42,6 +71,67 @@ namespace ProyectoFinal_JorgeSayegh.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GlobalSettings");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Message", b =>
+                {
+                    b.Property<Guid>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("RecipientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Post", b =>
+                {
+                    b.Property<Guid>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("PostId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.User", b =>
@@ -117,7 +207,8 @@ namespace ProyectoFinal_JorgeSayegh.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("RefreshInterval")
                         .HasColumnType("int");
@@ -160,6 +251,55 @@ namespace ProyectoFinal_JorgeSayegh.Migrations
                     b.HasIndex("WidgetId");
 
                     b.ToTable("WidgetSettings");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Comment", b =>
+                {
+                    b.HasOne("ProyectoFinal_JorgeSayegh.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoFinal_JorgeSayegh.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Message", b =>
+                {
+                    b.HasOne("ProyectoFinal_JorgeSayegh.Models.User", "Recipient")
+                        .WithMany()
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoFinal_JorgeSayegh.Models.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Post", b =>
+                {
+                    b.HasOne("ProyectoFinal_JorgeSayegh.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.UserFavorite", b =>
@@ -208,6 +348,11 @@ namespace ProyectoFinal_JorgeSayegh.Migrations
                     b.Navigation("User");
 
                     b.Navigation("Widget");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.Post", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("ProyectoFinal_JorgeSayegh.Models.User", b =>
